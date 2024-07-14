@@ -73,9 +73,5 @@ sealed class State {
         val items: List<GroupedItem>,
     ) : State()
 
-    data class DataItem(
-        val item: ItemData,
-    ) : State()
-
     data object Error : State()
 }

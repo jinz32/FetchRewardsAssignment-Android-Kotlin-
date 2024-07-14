@@ -47,7 +47,6 @@ fun Home(vm: HomeViewModel = viewModel()) {
             State.Loading -> Loading()
             State.Error -> Error()
             is State.Data -> DisplayGroupedItems(currentState.items)
-            is State.DataItem -> TODO()
         }
     }
 }
