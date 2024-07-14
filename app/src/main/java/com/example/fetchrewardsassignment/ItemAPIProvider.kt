@@ -7,13 +7,11 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
 object ItemAPIProvider {
-    // helps prevents errors when deserializing
     private val json =
         Json {
             ignoreUnknownKeys = true
         }
 
-    // return instance of ItemApiService (interface) >> async returns a list of itemData from url
     val client: ItemApiService by lazy {
         val okHttpClient =
             OkHttpClient

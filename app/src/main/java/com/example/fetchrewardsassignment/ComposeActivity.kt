@@ -38,12 +38,11 @@ class ComposeActivity : ComponentActivity() {
 }
 
 @Composable
-fun Home(vm: HomeViewModel = viewModel()) { // Using viewModel() to get or create the HomeViewModel
+fun Home(vm: HomeViewModel = viewModel()) {
     Box(
         modifier = Modifier.fillMaxSize(),
     ) {
         val state by vm.state.collectAsState()
-        // determine state here so i dont fetch api more than once based on how i have it set up in my viewmodel
         when (val currentState = state) {
             State.Loading -> Loading()
             State.Error -> Error()
@@ -106,32 +105,30 @@ fun ItemRow(itemData: GroupedItem.Item) {
                 .requiredHeight(48.dp)
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp, vertical = 8.dp),
-        horizontalArrangement = Arrangement.Start,
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        // List ID Row
         Row(verticalAlignment = Alignment.CenterVertically) {
             BoldText(text = "List ID:")
+            Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = itemData.listID,
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Left,
             )
         }
-        Spacer(modifier = Modifier.width(7.dp))
-        // ID Row
         Row(verticalAlignment = Alignment.CenterVertically) {
             BoldText(text = "ID:")
+            Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = itemData.id,
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Left,
             )
         }
-        Spacer(modifier = Modifier.width(7.dp))
-        // Name Row
         Row(verticalAlignment = Alignment.CenterVertically) {
             BoldText(text = "Name:")
+            Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = itemData.name,
                 style = MaterialTheme.typography.bodyLarge,
@@ -147,6 +144,5 @@ fun BoldText(text: String) {
         text = text,
         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
         textAlign = TextAlign.Start,
-        modifier = Modifier.width(75.dp), // Adjust width as needed
     )
 }

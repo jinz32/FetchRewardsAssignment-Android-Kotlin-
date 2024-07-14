@@ -24,7 +24,7 @@ class HomeViewModel : ViewModel() {
                 // Filter and sort items from API response
                 val sortedItems =
                     response
-                        .filter { it.name != null && it.name.isNotBlank() } // Filter out items with blank or null names
+                        .filter { !it.name.isNullOrBlank() } // Filter out items with blank or null names
                         .sortedWith(compareBy({ it.listId }, { getIdForSorting(it) }))
                 val groupedItems =
                     sortedItems
@@ -35,7 +35,6 @@ class HomeViewModel : ViewModel() {
                                     GroupedItem.Item(listId.toString(), it.id.toString(), it.name ?: "")
                                 }
                         }
-                // groupedItems is 324 (320 DataItem with 4 headers(itemList grouping) that I created, checked JSON in excel to confirm data)
                 _state.value = State.Data(groupedItems)
             } catch (e: Exception) {
                 Log.e("HomeViewModel", "Error loading items", e)
@@ -51,10 +50,6 @@ class HomeViewModel : ViewModel() {
         } else {
             item.name.removePrefix("Item ").toIntOrNull() ?: Int.MAX_VALUE
         }
-
-    fun setDatum(itemData: ItemData) {
-        _state.value = State.DataItem(itemData)
-    }
 }
 
 sealed class GroupedItem {
